@@ -69,7 +69,6 @@ const ticketsReducer = (state = ticketState, action) => {
       };
 
     case types.ACCEPT_TICKET:
-      // accept ticket
       return { ...state };
 
     case types.CANCEL_ACCEPT:

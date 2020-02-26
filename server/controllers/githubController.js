@@ -60,7 +60,6 @@ githubController.userData = (req, res, next) => {
 };
 
 githubController.createUser = (req, res, next) => {
-
 try {
   const checkUser = {
     text: `SELECT * FROM users WHERE github_id = $1;`,
@@ -81,6 +80,7 @@ try {
       res.locals.userData.avatar_url
     ]
   };
+
   // query data
   db.query(checkUser)
     .then(user => {
@@ -89,18 +89,17 @@ try {
       if(user.rowCount === 0) {
         db.query(addUser)
           .then(success => {
-            // console.log('SUCCESS: ', success);
-            console.log('inside success')
+            console.log('SUCCESS: ', success);
             res.locals.userData.id = success.rows[0]._id;
             return next()})
           .catch(err => ({ log: `Error in middleware loginController.createUser db addUser: ${err}` }))
       } else {
-        console.log('inside existing')
         res.locals.userData.id = user.rows[0]._id;
         return next();
       }    
     })
     .catch(err => ({ log: `Error in middleware loginController.createUser db checkUser: ${err}`}))
+
 } catch (err) {
   return next({ log: `Error in middleware loginController.createUser db checkUser: ${err}` })
 }

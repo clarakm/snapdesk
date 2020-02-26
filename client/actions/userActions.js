@@ -50,10 +50,3 @@ export const getUserData = () => dispatch =>
       
       }
     )
-
-export const logOut = () => dispatch => {
-return dispatch({
-  type: types.USER_LOGOUT,
-  payload: { isLoggedIn: false },
-  });
-}

@@ -59,7 +59,7 @@ ticketsController.addTicket = (req, res, next) => {
     .then(ticket => {
       res.locals.ticketId = ticket.rows[0]._id;
       res.locals.timestamp = ticket.rows[0].timestamp;
-      res.locals.menteeId = ticket.rows[0].mentee_id;
+      res.locals.menteeId = ticket.rows[0].mentee_id; 
       return next();
     })
     .catch(err => next({
