@@ -82,7 +82,7 @@ export const deleteTicket = id => (dispatch, getState) =>
           type: types.DELETE_TICKET,
           payload: id,
         })
-      }     
+      }
     })
 
 export const resolveTicket = id => ({

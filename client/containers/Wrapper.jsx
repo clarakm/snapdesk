@@ -42,7 +42,7 @@ class Wrapper extends Component {
       <div className="wrapper">
         <div className="row align-items-start">
           <div className="col-2">
-            <LeftNav url={this.props.userAvatar} userName={this.props.userName} />
+            <LeftNav url={this.props.userAvatar} userName={this.props.userName} logOut={this.props.logOut}/>
           </div>
           <div className="col-8">
             <FeedContainer />

@@ -28,6 +28,7 @@ loginRouter.get(
   githubController.createUser,
   jwtsController.loginUser,
   (req, res) => {
+    console.log('before redirect')
     res.redirect('/');
   }
 );
