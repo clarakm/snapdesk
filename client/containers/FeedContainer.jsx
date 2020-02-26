@@ -17,7 +17,13 @@ import MenteeTicketBox from "../components/MenteeTicketBox";
 import BystanderTicketBox from "../components/BystanderTicketBox";
 import TicketCreator from "../components/TicketCreator";
 
+//live chat and socket stuff
 import LiveChat from "../components/LiveChat";
+import io from "socket.io-client";
+let socket;
+socket = io("http://localhost:3000", {
+  transports: ["websocket", "polling"]
+});
 // import { render } from 'node-sass';
 
 const mapStateToProps = state => ({
@@ -35,9 +41,13 @@ class FeedContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      renderChat: false
+      renderChat: false,
+      messages: [],
+      name: "",
+      endpoint: "localhost:3000"
     };
     this.renderChat = this.renderChat.bind(this);
+    this.sendChat = this.sendChat.bind(this);
   }
 
   //renders tickets
@@ -64,10 +74,25 @@ class FeedContainer extends Component {
     this.setState({ renderChat: true });
   }
 
+  // Socket send chat action
+  sendChat(value) {
+    console.log("in send chat");
+    socket.emit("chat message", value);
+  }
+
   render() {
+    socket.on("chat message", message => {
+      console.log("sock on cm", message);
+      this.setState(prevState => ({
+        messages: [...prevState.messages, message]
+      }));
+      // console.log(this.state.messages);
+    });
     let chatBox;
     if (this.state.renderChat) {
-      chatBox = <LiveChat />;
+      chatBox = (
+        <LiveChat sendChat={this.sendChat} messages={this.state.messages} />
+      );
     }
     // if there are no active tickets, display a message in the background saying nothing here
     // do not render it when a ticket is added

@@ -1,18 +1,25 @@
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 // server port
 const PORT = 3000;
 
+//socket stuff
+const http = require("http");
+const socketIO = require("socket.io");
+
+const server = http.createServer(app);
+const io = socketIO(server);
+
 /**
  * REQUIRE IN ROUTERS HERE
  */
-const apiRouter = require('./routes/api');
-const loginRouter = require('./routes/login');
+const apiRouter = require("./routes/api");
+const loginRouter = require("./routes/login");
 
 /**
  * REQUIRE IN MIDDLEWARE HERE
@@ -28,19 +35,37 @@ app.use(cookieParser());
 /**
  *  Route handlers
  */
-app.use('/api', apiRouter);
-app.use('/login', loginRouter);
+app.use("/api", apiRouter);
+app.use("/login", loginRouter);
 
 // handle static files
-app.use('/build', express.static(path.join(__dirname, '../build')));
-app.use(express.static(path.join(__dirname, '../img')));
+app.use("/build", express.static(path.join(__dirname, "../build")));
+app.use(express.static(path.join(__dirname, "../img")));
 
 // response with main app
-if (process.env.NODE_ENV === 'production') {
-  app.get('/', (req, res) =>
-    res.status(200).sendFile(path.resolve(__dirname, '../index.html'))
+if (process.env.NODE_ENV === "production") {
+  app.get("/", (req, res) =>
+    res.status(200).sendFile(path.resolve(__dirname, "../index.html"))
   );
 }
+
+// SOCKET
+io.on("connection", socket => {
+  console.log("New User Connected");
+
+  socket.on("chat message", message => {
+    console.log("message: ", message);
+
+    io.emit("chat message", message);
+  });
+
+  // Save messages stretch feature
+  // Emit messages to frontend stretch feature
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.sendStatus(404));
@@ -51,9 +76,9 @@ app.use((req, res) => res.sendStatus(404));
  */
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: "Express error handler caught unknown middleware error",
     status: 400,
-    message: { err: 'An error occurred. Check server logs for detials.' },
+    message: { err: "An error occurred. Check server logs for detials." }
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
@@ -63,6 +88,7 @@ app.use((err, req, res, next) => {
 /**
  * Start server
  */
-app.listen(PORT, () => {
-  console.log(`Server is listening on port: ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is listening on port: ${PORT}`);
+// });
+server.listen(3000);
