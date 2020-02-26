@@ -75,16 +75,16 @@ export const deleteTicket = id => (dispatch, getState) =>
       } else {
         dispatch({
           type: types.DELETE_TICKET,
-          payload: id,
-        })
-      }     
-    })
+          payload: id
+        });
+      }
+    });
 
 export const resolveTicket = id => (dispatch, getState) =>
   axios
     .put("/api/tickets/delete", {
       ticketId: id,
-      status: "deleted"
+      status: "resolved"
     })
     .then(({ data }) => {
       if (!data.isLoggedIn) {
