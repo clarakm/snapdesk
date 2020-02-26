@@ -90,16 +90,44 @@ html {
   min-height: 700px;
 }
 
-.userNameWrap{
-  word-wrap:break-word;
+.userNameWrap {
+  word-wrap: break-word;
 }
-.leftNavMargin{
+.leftNavMargin {
   margin-left: 3px;
-  margin-bottom:auto;
- 
+  margin-bottom: auto;
 }
 
 .ticketbox {
   border: 2px solid white;
   border-radius: 5px;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+#chatBtn {
+  height: 50px;
+  width: 80px;
+  align-self: flex-end;
+}
+
+.chatLog {
+  width: 250px;
+  height: 250px;
+}
+
+.chatBox {
+  width: 300px;
+  height: 300px;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-end;
 }
