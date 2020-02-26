@@ -106,7 +106,6 @@ export const acceptTicket = (messageId, userId) => dispatch => {
     .put("/api/tickets/accept", {
       ticketId: messageId,
       mentorId: userId,
-      status: "pending"
     })
     .then(({ data }) => {
       if (data) {
