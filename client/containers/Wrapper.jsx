@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
   ticketsCount: state.tickets.ticketsCount,
   userAvatar: state.user.userAvatar,
   userName:state.user.userName,
+  
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(userActions, dispatch)
