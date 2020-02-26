@@ -89,14 +89,14 @@ try {
       if(user.rowCount === 0) {
         db.query(addUser)
           .then(success => {
-            // console.log('SUCCESS: ', success);
+            console.log('SUCCESS: ', success);
             res.locals.userData.id = success.rows[0]._id;
             return next()})
           .catch(err => ({ log: `Error in middleware loginController.createUser db addUser: ${err}` }))
       } else {
         res.locals.userData.id = user.rows[0]._id;
         return next();
-      }    
+      }
     })
     .catch(err => ({ log: `Error in middleware loginController.createUser db checkUser: ${err}`}))
 
