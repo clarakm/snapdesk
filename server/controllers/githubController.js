@@ -72,14 +72,33 @@ githubController.createUser = (req, res, next) => {
       VALUES ($1, $2, $3, $4, $5)
       RETURNING _id;
     `,
-      values: [
-        res.locals.userData.name,
-        res.locals.userData.email,
-        res.locals.userData.bio,
-        res.locals.userData.github_id,
-        res.locals.userData.avatar_url
-      ]
-    };
+    values: [
+      res.locals.userData.name,
+      res.locals.userData.email,
+      res.locals.userData.bio,
+      res.locals.userData.github_id,
+      res.locals.userData.avatar_url
+    ]
+  };
+
+  // query data
+  db.query(checkUser)
+    .then(user => {
+      
+      // if user doesn't exist in database, add to db
+      if(user.rowCount === 0) {
+        db.query(addUser)
+          .then(success => {
+            // console.log('SUCCESS: ', success);
+            res.locals.userData.id = success.rows[0]._id;
+            return next()})
+          .catch(err => ({ log: `Error in middleware loginController.createUser db addUser: ${err}` }))
+      } else {
+        res.locals.userData.id = user.rows[0]._id;
+        return next();
+      }    
+    })
+    .catch(err => ({ log: `Error in middleware loginController.createUser db checkUser: ${err}`}))
 
     // query data
     db.query(checkUser)

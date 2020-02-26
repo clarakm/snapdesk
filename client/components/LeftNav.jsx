@@ -20,7 +20,7 @@ const LeftNav = props => (
       alt="Snap Desk Logo">
     </img>
       <h4 className="userNameWrap " id="user-Name" width="200px">{props.userName} </h4></Nav.Link>
-    <Nav.Link className="btn btn-success btn-sm " width="100px" eventKey="logout-link">Logout</Nav.Link>
+    <Nav.Link className="btn btn-success btn-sm " width="100px" onClick={props.logOut}>Logout</Nav.Link>
   </Nav>
 );
 
