@@ -9,13 +9,15 @@
  * ************************************
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../actions/ticketActions';
-import MenteeTicketBox from '../components/MenteeTicketBox';
-import BystanderTicketBox from '../components/BystanderTicketBox';
-import TicketCreator from '../components/TicketCreator';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../actions/ticketActions";
+import MenteeTicketBox from "../components/MenteeTicketBox";
+import BystanderTicketBox from "../components/BystanderTicketBox";
+import TicketCreator from "../components/TicketCreator";
+
+import LiveChat from "../components/LiveChat";
 // import { render } from 'node-sass';
 
 const mapStateToProps = state => ({
@@ -24,7 +26,7 @@ const mapStateToProps = state => ({
   messageRating: state.tickets.messageRating,
   activeTickets: state.tickets.activeTickets,
   messageRating: state.tickets.messageRating,
-  ticketsCount: state.tickets.ticketsCount,
+  ticketsCount: state.tickets.ticketsCount
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
@@ -32,6 +34,10 @@ const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
 class FeedContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      renderChat: false
+    };
+    this.renderChat = this.renderChat.bind(this);
   }
 
   componentWillMount() {
@@ -44,14 +50,23 @@ class FeedContainer extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval);
-    document.title = 'SnapDesk';
+    document.title = "SnapDesk";
   }
 
   componentDidUpdate() {
-    document.title = '(' + this.props.ticketsCount + ') ' + 'SnapDesk';
+    document.title = "(" + this.props.ticketsCount + ") " + "SnapDesk";
+  }
+
+  renderChat() {
+    console.log("in render chat");
+    this.setState({ renderChat: true });
   }
 
   render() {
+    let chatBox;
+    if (this.state.renderChat) {
+      chatBox = <LiveChat />;
+    }
     // if there are no active tickets, display a message in the background saying nothing here
     // do not render it when a ticket is added
 
@@ -68,31 +83,32 @@ class FeedContainer extends Component {
         if (this.props.userId !== this.props.activeTickets[i].menteeId) {
           //ticket should render bystanderticketbox
           ticketBox = (
-            <BystanderTicketBox 
-            cancelAccept={this.props.cancelAccept}
-            acceptTicket={this.props.acceptTicket}
-            messageInput={this.props.activeTickets[i].messageInput}
-            messageRating={this.props.activeTickets[i].messageRating}
-            ticket={this.props.activeTickets[i]}
-            key={this.props.activeTickets[i].messageId}
+            <BystanderTicketBox
+              cancelAccept={this.props.cancelAccept}
+              acceptTicket={this.props.acceptTicket}
+              messageInput={this.props.activeTickets[i].messageInput}
+              messageRating={this.props.activeTickets[i].messageRating}
+              ticket={this.props.activeTickets[i]}
+              key={this.props.activeTickets[i].messageId}
+              // chat={this.state.renderChat}
             />
-            )
-          } else {
-            ticketBox = (
-              <MenteeTicketBox
+          );
+        } else {
+          ticketBox = (
+            <MenteeTicketBox
               deleteTicket={this.props.deleteTicket}
               resolveTicket={this.props.resolveTicket}
               messageInput={this.props.activeTickets[i].messageInput}
               messageRating={this.props.activeTickets[i].messageRating}
               ticket={this.props.activeTickets[i]}
               key={this.props.activeTickets[i].messageId}
-              />
-              )
-          }
-          
-          activeTickets.push(ticketBox);
+            />
+          );
         }
+
+        activeTickets.push(ticketBox);
       }
+    }
 
     return (
       <div>
@@ -100,6 +116,16 @@ class FeedContainer extends Component {
           {/* map buildFeed to tickets array */}
           {/* <BystanderTicketBox /> */}
           {activeTickets}
+        </div>
+        <div className="chatContainer">
+          <button
+            onClick={() => this.renderChat()}
+            id="chatBtn"
+            className="btn btn-success"
+          >
+            Chat
+          </button>
+          {chatBox}
         </div>
         <div className="ticketCreator">
           <TicketCreator {...this.props} key={this.props.userId} />
@@ -109,7 +135,4 @@ class FeedContainer extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FeedContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FeedContainer);
