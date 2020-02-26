@@ -27,6 +27,15 @@ CREATE TABLE "tickets" (
   OIDS=FALSE
 );
 
+CREATE TABLE "chats" (
+	"_id" serial NOT NULL,
+	"name" TEXT NOT NULL,
+	"message" TEXT NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+
 
 
 
