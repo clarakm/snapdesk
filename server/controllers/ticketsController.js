@@ -40,7 +40,7 @@ ticketsController.getActiveTickets = (req, res, next) => {
     })
     .catch(err =>
       next({
-        log: `Error in middleware ticketsController.addNewTicket: ${err}`
+        log: `Error in middleware ticketsController.getActiveTicket: ${err}`
       })
     );
 };
@@ -66,7 +66,7 @@ ticketsController.addTicket = (req, res, next) => {
     })
     .catch(err =>
       next({
-        log: `Error in middleware ticketsController.addNewTicket: ${err}`
+        log: `Error in middleware ticketsController.addTicket: ${err}`
       })
     );
 };
@@ -104,12 +104,11 @@ ticketsController.acceptTicket = (req, res, next) => {
   db.query(addMentorId)
     .then(mentorId => {
       console.log(mentorId);
-      res.locals.mentorID = ticket.rows[0].mentor_id;
       return next();
     })
     .catch(err =>
       next({
-        log: `Error in middleware ticketsController.addNewTicket: ${err}`
+        log: `Error in middleware ticketsController.acceptTicket: ${err}`
       })
     );
 };
