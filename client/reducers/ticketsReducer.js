@@ -69,7 +69,23 @@ const ticketsReducer = (state = ticketState, action) => {
       };
 
     case types.ACCEPT_TICKET:
-      return { ...state };
+      console.log('inside the reducer')
+      const messageId = action.payload[0]
+      const mentorId = action.payload[1]
+      updatedTickets = state.activeTickets.map((ticket, index) => {
+        if (ticket.messageId === messageId) {
+          ticket.mentorId = mentorId
+          ticket.status = "pending"
+          console.log(ticket)
+          return ticket;
+        }
+        return ticket;
+      });
+
+      
+      return { ...state,
+        activeTickets: updatedTickets,
+      };
 
     case types.CANCEL_ACCEPT:
       return { ...state };
