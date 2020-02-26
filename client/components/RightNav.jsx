@@ -1,9 +1,10 @@
-import React from 'react';
-import { Nav } from 'react-bootstrap';
+import React from "react";
+import { Nav } from "react-bootstrap";
 
 const RightNav = props => (
   <Nav defaultActiveKey="/feed" className="flex-column justify-content-end">
     <Nav.Item>Active Tickets: {props.ticketsCount}</Nav.Item>
+    <Nav.Item>Resolved Tickets: {props.resolvedTickets}</Nav.Item>
     <Nav.Item>Leaderboard: </Nav.Item>
   </Nav>
 );
