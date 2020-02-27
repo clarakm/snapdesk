@@ -76,42 +76,73 @@ ticketsController.updateTicketStatus = (req, res, next) => {
   const updateTicket = {
     text: `
       UPDATE tickets
-      SET status = $1, 
+      SET status = $1
       WHERE _id = $2;
     `,
     values: [status, ticketId]
   };
+
   db.query(updateTicket)
     .then(success => next())
     .catch(err =>
       next({
-        log: `Error in middleware ticketsController.updateTicket: ${err}`
+        log: `Error in middleware ticketsController.updateTicketStatus: ${err}`
       })
     );
 };
 
 ticketsController.acceptTicket = (req, res, next) => {
-  const { ticketId, mentorId } = req.body;
+  console.log(req.body);
+  const { ticketId, mentorId, status } = req.body;
   const addMentorId = {
     text: `
       UPDATE tickets
       SET
-      mentor_id = $2, status='pending' WHERE _id = $1 
+      mentor_id = $2, status = $3 WHERE _id = $1
     `,
-    values: [ticketId, mentorId]
+    values: [ticketId, mentorId, status]
   };
 
   db.query(addMentorId)
     .then(mentorId => {
-      console.log(mentorId);
-      res.locals.mentorID = ticket.rows[0].mentor_id;
       return next();
     })
     .catch(err =>
       next({
-        log: `Error in middleware ticketsController.addNewTicket: ${err}`
+        log: `Error in middleware ticketsController.acceptTicket: ${err}`
       })
     );
 };
+
+// ticketsController.getResolvedTickets = (req, res, next) => {
+//   const resolveTickets = `
+//     SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name
+//     FROM tickets t
+//     INNER JOIN users u
+//     ON u._id = t.mentee_id
+//     WHERE status = 'resolve'
+//     ORDER BY t._id;
+//   `;
+//   db.query(resolveTickets)
+//     .then(({ rows }) => {
+//       const formatTickets = rows.map(ticket => ({
+//         messageInput: ticket.message,
+//         messageRating: ticket.snaps_given,
+//         messageId: ticket._id,
+//         menteeId: ticket.mentee_id,
+//         menteeName: ticket.mentee_name,
+//         timestamp: ticket.timpestamp,
+//         status: ticket.status,
+//         mentorId: ticket.mentor_id || ""
+//       }));
+//       res.locals.activeTickets = formatTickets;
+//       return next();
+//     })
+//     .catch(err =>
+//       next({
+//         log: `Error in middleware ticketsController.addNewTicket: ${err}`
+//       })
+//     );
+// };
 
 module.exports = ticketsController;
