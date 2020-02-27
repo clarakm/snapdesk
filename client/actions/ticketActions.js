@@ -82,9 +82,9 @@ export const deleteTicket = id => (dispatch, getState) =>
 
 export const resolveTicket = id => (dispatch, getState) =>
   axios
-    .put("/api/tickets/delete", {
+    .put("/api/tickets/resolve", {
       ticketId: id,
-      status: "deleted"
+      status: "resolved"
     })
     .then(({ data }) => {
       if (!data.isLoggedIn) {
@@ -106,6 +106,7 @@ export const acceptTicket = (messageId, userId) => dispatch => {
     .put("/api/tickets/accept", {
       ticketId: messageId,
       mentorId: userId,
+      status: "pending"
     })
     .then(({ data }) => {
       if (data) {
