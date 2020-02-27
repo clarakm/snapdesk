@@ -23,6 +23,7 @@ const LiveChat = props => {
           props.sendChat({
             messages: text
           });
+          setText("");
         }}
       >
         send

@@ -57,6 +57,13 @@ class FeedContainer extends Component {
 
   //refreshes/renders when people add new tickets every 5 secs
   componentDidMount() {
+    socket.on("chat", message => {
+      console.log("sock on cm", message);
+      this.setState(prevState => ({
+        messages: prevState.messages.concat(message)
+      }));
+      // console.log(this.state.messages);
+    });
     this.interval = setInterval(() => this.props.getTickets(), 5000);
   }
 
@@ -77,17 +84,17 @@ class FeedContainer extends Component {
   // Socket send chat action
   sendChat(value) {
     console.log("in send chat");
-    socket.emit("chat message", value);
+    socket.emit("chat", value);
   }
 
   render() {
-    socket.on("chat message", message => {
-      console.log("sock on cm", message);
-      this.setState(prevState => ({
-        messages: [...prevState.messages, message]
-      }));
-      // console.log(this.state.messages);
-    });
+    // socket.on("chat", message => {
+    //   console.log("sock on cm", message);
+    //   this.setState(prevState => ({
+    //     messages: prevState.messages.concat(message)
+    //   }));
+    //   // console.log(this.state.messages);
+    // });
     let chatBox;
     if (this.state.renderChat) {
       chatBox = (

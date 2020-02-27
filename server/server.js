@@ -51,19 +51,17 @@ if (process.env.NODE_ENV === "production") {
 
 // SOCKET
 io.on("connection", socket => {
-  console.log("New User Connected");
+  console.log("New User Connected!!");
 
-  socket.on("chat message", message => {
+  socket.on("chat", message => {
     console.log("message: ", message);
 
-    io.emit("chat message", message);
+    io.emit("chat", message);
   });
-
-  // Save messages stretch feature
-  // Emit messages to frontend stretch feature
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    // socket.removeAllListeners;
   });
 });
 
