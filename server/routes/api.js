@@ -26,6 +26,7 @@ apiRouter.get(
   "/tickets",
   jwtsController.isLoggedIn,
   ticketsController.getActiveTickets,
+  // ticketsController.getResolvedTickets,
   (req, res) => res.status(200).json(res.locals)
 );
 
@@ -36,8 +37,19 @@ apiRouter.post(
   (req, res) => res.status(200).json(res.locals)
 );
 
-apiRouter.put("/tickets/accept", ticketsController.acceptTicket, (req, res) =>
-  res.status(200).json(res.locals)
+apiRouter.put(
+  "/tickets/accept",
+  ticketsController.acceptTicket,
+  // ticketsController.updateTicketStatus,
+  (req, res) => res.status(200)
 );
+
+// apiRouter.put(
+//   "tickets/resolve",
+//   ticketsController.updateTicketStatus,
+//   (req, res) => {
+//     res.status(200);
+//   }
+// );
 
 module.exports = apiRouter;
