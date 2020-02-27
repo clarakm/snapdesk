@@ -8,6 +8,8 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
+.col {
+}
 /* left navigation bar style */
 #leftNav {
   display: flex;

@@ -12,7 +12,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as actions from "../actions/ticketActions";
+import * as ticketActions from "../actions/ticketActions";
 import MenteeTicketBox from "../components/MenteeTicketBox";
 import BystanderTicketBox from "../components/BystanderTicketBox";
 import TicketCreator from "../components/TicketCreator";
@@ -35,7 +35,7 @@ const mapStateToProps = state => ({
   ticketsCount: state.tickets.ticketsCount
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(ticketActions, dispatch);
 
 class FeedContainer extends Component {
   constructor(props) {
@@ -114,7 +114,9 @@ class FeedContainer extends Component {
               messageInput={this.props.activeTickets[i].messageInput}
               messageRating={this.props.activeTickets[i].messageRating}
               ticket={this.props.activeTickets[i]}
+              messageId={this.props.activeTickets[i].messageId}
               key={this.props.activeTickets[i].messageId}
+              userId= {this.props.userId}
               // chat={this.state.renderChat}
             />
           );

@@ -26,7 +26,9 @@ class BystanderTicketBox extends Component {
       buttons = (
         <span>
           <Button
-            onClick={() => this.props.acceptTicket(this.props.messageId)}
+            onClick={() =>
+              this.props.acceptTicket(this.props.messageId, this.props.userId)
+            }
             type="button"
             className="btn btn-success"
           >
@@ -49,7 +51,7 @@ class BystanderTicketBox extends Component {
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
-            Accept
+            Pending
           </Button>
           <Button disabled={true} type="button" className="btn btn-secondary">
             Cancel
@@ -65,14 +67,14 @@ class BystanderTicketBox extends Component {
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
-            Accept
+            Pending
           </Button>
           <Button
             onClick={() => this.props.cancelAccept(this.props.messageId)}
             type="button"
             className="btn btn-warning"
           >
-            Cancel - not active
+            Decline
           </Button>
         </span>
       );
