@@ -16,6 +16,7 @@ const LiveChat = props => {
     <div className="chatBox">
       <div className="chatLog">{logs}</div>
       <input
+        className="inputBox"
         type="text"
         name="chat"
         value={text}

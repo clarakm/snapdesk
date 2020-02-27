@@ -21,14 +21,21 @@ const TicketCreator = props => (
       }}
     >
       <Form.Group
+        className="inputReq"
         controlId="exampleForm.ControlTextarea1"
         onChange={props.updateMessage}
       >
-        <Form.Label>What do you need help with?</Form.Label>
-        <Form.Control as="textarea" rows="3" value={props.messageInput} />
+        <Form.Label className="prompt">What do you need help with?</Form.Label>
+        <Form.Control
+          className="inputText"
+          as="textarea"
+          rows="3"
+          value={props.messageInput}
+        />
       </Form.Group>
-      <Form.Group onChange={props.updateRating}>
+      <Form.Group className="rating" onChange={props.updateRating}>
         <Form.Check
+          className="snap"
           inline
           label="1"
           type="radio"
@@ -37,6 +44,7 @@ const TicketCreator = props => (
           value={1}
         />
         <Form.Check
+          className="snap"
           inline
           label="2"
           type="radio"
@@ -45,6 +53,7 @@ const TicketCreator = props => (
           value={2}
         />
         <Form.Check
+          className="snap"
           inline
           label="3"
           type="radio"
@@ -53,6 +62,7 @@ const TicketCreator = props => (
           value={3}
         />
         <Form.Check
+          className="snap"
           inline
           label="4"
           type="radio"
@@ -61,6 +71,7 @@ const TicketCreator = props => (
           value={4}
         />
         <Form.Check
+          className="snap"
           inline
           label="5"
           type="radio"
@@ -69,7 +80,11 @@ const TicketCreator = props => (
           value={5}
         />
       </Form.Group>
-      <Button className="btn btn-secondary btn-md" type="submit">
+      <Button
+        id="postButton"
+        className="btn btn-secondary btn-md"
+        type="submit"
+      >
         Post
       </Button>
     </Form>

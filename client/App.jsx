@@ -34,9 +34,15 @@ class App extends Component {
           <section className="void"></section>
           <div id="stars2"></div>
           <div id="stars3"></div>
-          {/* <div id="full"> */}
-          <form id="login-form" method="GET" action="/login/oauth">
-            <img id="logo" src="logo2.png" alt="" />
+
+          <form
+            className="home"
+            id="login-form"
+            method="GET"
+            action="/login/oauth"
+          >
+            {/* <img className="logo" src="../img/logo2.png" /> */}
+
             <button
               className="btn btn-outline-primary btn-lg"
               id="github-login"
@@ -46,7 +52,6 @@ class App extends Component {
             </button>
           </form>
         </div>
-        // </div>
       );
     }
 

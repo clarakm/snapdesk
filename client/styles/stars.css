@@ -1,7 +1,8 @@
 #contents {
   /* background: #161126; */
   /* background-size: 1000% 8000%; */
-  background: linear-gradient(-45deg, #260a4d, #d37a5e, #330654);
+  /* background: linear-gradient(-45deg, #260a4d, #d37a5e, #330654); */
+  background: linear-gradient(-45deg, #070121, #cff5ea, #01012b);
   animation: gradient 10s ease infinite;
   background-repeat: no-repeat;
 }

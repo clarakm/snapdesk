@@ -51,24 +51,24 @@ class RightNav extends Component {
 
     return (
       <div className="rightNav">
-        <div className="rightBar">
-          <div className="rightField">
-            Active Tickets: {this.props.ticketsCount}
-          </div>
-          <div className="rightField">
-            Resolved Tickets: {this.props.resolvedTickets}
-          </div>
-          <div className="chatContainer">
-            <button
-              onClick={() => this.renderChat()}
-              id="chatBtn"
-              className="btn btn-success"
-            >
-              Chat
-            </button>
-            {chatBox}
-          </div>
+        {/* <div className="rightBar"> */}
+        <div className="rightField">
+          Active Tickets: {this.props.ticketsCount}
         </div>
+        <div className="rightField">
+          Resolved Tickets: {this.props.resolvedTickets}
+        </div>
+        <div className="chatContainer">
+          {chatBox}
+          <button
+            onClick={() => this.renderChat()}
+            id="chatBtn"
+            className="btn btn-success"
+          >
+            Chat
+          </button>
+        </div>
+        {/* </div> */}
       </div>
     );
   }
