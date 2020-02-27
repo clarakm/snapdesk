@@ -73,6 +73,7 @@ ticketsController.addTicket = (req, res, next) => {
 
 ticketsController.updateTicketStatus = (req, res, next) => {
   const { ticketId, status } = req.body;
+  console.log(req.body);
   const updateTicket = {
     text: `
       UPDATE tickets
@@ -83,7 +84,11 @@ ticketsController.updateTicketStatus = (req, res, next) => {
   };
 
   db.query(updateTicket)
-    .then(success => next())
+    .then(result => {
+      // console.log(result);
+      res.locals.status = result.rows[0];
+      return next();
+    })
     .catch(err =>
       next({
         log: `Error in middleware ticketsController.updateTicketStatus: ${err}`
@@ -92,19 +97,22 @@ ticketsController.updateTicketStatus = (req, res, next) => {
 };
 
 ticketsController.acceptTicket = (req, res, next) => {
+  console.log(req.body);
   const { ticketId, mentorId, status } = req.body;
   const addMentorId = {
     text: `
       UPDATE tickets
       SET
       mentor_id = $2, status=$3 WHERE _id = $1 
+      RETURNING *
     `,
     values: [ticketId, mentorId, status]
   };
 
   db.query(addMentorId)
-    .then(mentorId => {
-      console.log(mentorId);
+    .then(result => {
+      // console.log(result.rows);
+      res.locals.result = result.rows[0];
       return next();
     })
     .catch(err =>
@@ -115,7 +123,7 @@ ticketsController.acceptTicket = (req, res, next) => {
 };
 
 // ticketsController.getResolvedTickets = (req, res, next) => {
-//   const resolveTickets = `
+//   const resolvedTickets = `
 //     SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name
 //     FROM tickets t
 //     INNER JOIN users u
@@ -123,7 +131,7 @@ ticketsController.acceptTicket = (req, res, next) => {
 //     WHERE status = 'resolve'
 //     ORDER BY t._id;
 //   `;
-//   db.query(resolveTickets)
+//   db.query(resolvedTickets)
 //     .then(({ rows }) => {
 //       const formatTickets = rows.map(ticket => ({
 //         messageInput: ticket.message,
@@ -135,12 +143,12 @@ ticketsController.acceptTicket = (req, res, next) => {
 //         status: ticket.status,
 //         mentorId: ticket.mentor_id || ""
 //       }));
-//       res.locals.activeTickets = formatTickets;
+//       res.locals.resolvedTickets = formatTickets;
 //       return next();
 //     })
 //     .catch(err =>
 //       next({
-//         log: `Error in middleware ticketsController.addNewTicket: ${err}`
+//         log: `Error in middleware ticketsController.getResolvedTickets: ${err}`
 //       })
 //     );
 // };
