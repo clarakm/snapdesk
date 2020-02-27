@@ -67,10 +67,10 @@ class MenteeTicketBox extends Component {
     }
     return (
       <div className="ticketbox">
-        <p className="request">
+        <p className="myrequest">
           Request: <span className="req">{this.props.messageInput}</span>
         </p>
-        <p className="request">
+        <p className="expected">
           Expected Snaps:{" "}
           <span className="req">{this.props.messageRating}</span>
         </p>
