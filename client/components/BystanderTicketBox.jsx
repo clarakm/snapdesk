@@ -18,8 +18,6 @@ class BystanderTicketBox extends Component {
     // this.renderChat = this.renderChat.bind(this);
   }
   render() {
-    console.log(this.props.userId)
-    console.log(this.props.ticket.mentorId)
     if (this.props.ticket.status === "active" &&
       this.props.userId === this.props.ticket.mentee) {
       //ticket published by another user but has not been pick up yet

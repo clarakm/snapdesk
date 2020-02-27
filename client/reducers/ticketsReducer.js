@@ -69,14 +69,12 @@ const ticketsReducer = (state = ticketState, action) => {
       };
 
     case types.ACCEPT_TICKET:
-      console.log('inside the reducer')
-      const messageId = action.payload[0]
-      const mentorId = action.payload[1]
+      let messageId = action.payload[0]
+      let mentorId = action.payload[1]
       updatedTickets = state.activeTickets.map((ticket, index) => {
         if (ticket.messageId === messageId) {
           ticket.mentorId = mentorId
           ticket.status = "pending"
-          console.log(ticket)
           return ticket;
         }
         return ticket;
@@ -88,7 +86,19 @@ const ticketsReducer = (state = ticketState, action) => {
       };
 
     case types.CANCEL_ACCEPT:
-      return { ...state };
+      messageId = action.payload
+      updatedTickets = state.activeTickets.map((ticket, index) => {
+        if (ticket.messageId === messageId) {
+          ticket.status = "active"
+          return ticket;
+        }
+        return ticket;
+      });
+
+      
+      return { ...state,
+        activeTickets: updatedTickets,
+      };
 
     case types.DELETE_TICKET:
       updatedTickets = state.activeTickets.map((ticket, index) => {
@@ -99,7 +109,6 @@ const ticketsReducer = (state = ticketState, action) => {
         return ticket;
       });
       updatedTickets.splice(idx, 1);
-      // console.log(updatedTickets)
       return {
         ...state,
         activeTickets: updatedTickets,

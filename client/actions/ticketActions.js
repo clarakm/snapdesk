@@ -109,7 +109,6 @@ export const acceptTicket = (messageId, userId) => dispatch => {
     })
     .then(({ data }) => {
       if (data) {
-        console.log(`this is mentor ID ${data}`);
       }
     });
   return dispatch({
@@ -126,7 +125,7 @@ export const cancelAccept = (messageId) => dispatch => {
   })
   .then(({ data }) => {
     if (data) {
-      console.log(`this is mentor ID ${data}`)
+
     }
   });
   return dispatch({
