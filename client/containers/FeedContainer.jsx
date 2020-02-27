@@ -42,9 +42,7 @@ class FeedContainer extends Component {
     super(props);
     this.state = {
       renderChat: false,
-      messages: [],
-      name: "",
-      endpoint: "localhost:3000"
+      messages: []
     };
     this.renderChat = this.renderChat.bind(this);
     this.sendChat = this.sendChat.bind(this);
@@ -88,13 +86,6 @@ class FeedContainer extends Component {
   }
 
   render() {
-    // socket.on("chat", message => {
-    //   console.log("sock on cm", message);
-    //   this.setState(prevState => ({
-    //     messages: prevState.messages.concat(message)
-    //   }));
-    //   // console.log(this.state.messages);
-    // });
     let chatBox;
     if (this.state.renderChat) {
       chatBox = (
@@ -146,7 +137,7 @@ class FeedContainer extends Component {
 
     return (
       <div>
-        <div className="ticketDisplay overflow-auto">
+        <div id="activeTix" className="ticketDisplay overflow-auto">
           {/* map buildFeed to tickets array */}
           {/* <BystanderTicketBox /> */}
           {activeTickets}

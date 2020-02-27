@@ -42,18 +42,18 @@ class Wrapper extends Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="row align-items-start">
-          <div className="col-2">
-            <LeftNav 
-              url={this.props.userAvatar} 
-              userName={this.props.userName} 
+        <div className="row">
+          <div className="col">
+            <LeftNav
+              url={this.props.userAvatar}
+              userName={this.props.userName}
               logOut={this.props.logOut}
             />
           </div>
-          <div className="col-8">
+          <div className="col">
             <FeedContainer />
           </div>
-          <div className="col-2">
+          <div className="col">
             <RightNav
               ticketsCount={this.props.ticketsCount}
               resolvedTickets={this.props.resolvedTickets}

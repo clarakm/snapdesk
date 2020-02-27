@@ -79,7 +79,7 @@ class BystanderTicketBox extends Component {
     }
 
     return (
-      <div className="BystanderTicketBox ticketbox">
+      <div className="ticketbox">
         <p>Request: {this.props.messageInput}</p>
         <p>Expected Snaps: {this.props.messageRating}</p>
         {buttons}
