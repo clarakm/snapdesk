@@ -17,13 +17,6 @@ import MenteeTicketBox from "../components/MenteeTicketBox";
 import BystanderTicketBox from "../components/BystanderTicketBox";
 import TicketCreator from "../components/TicketCreator";
 
-//live chat and socket stuff
-import LiveChat from "../components/LiveChat";
-import io from "socket.io-client";
-let socket;
-socket = io("http://localhost:3000", {
-  transports: ["websocket", "polling"]
-});
 // import { render } from 'node-sass';
 
 const mapStateToProps = state => ({
@@ -42,12 +35,6 @@ const mapDispatchToProps = dispatch =>
 class FeedContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      renderChat: false,
-      messages: []
-    };
-    this.renderChat = this.renderChat.bind(this);
-    this.sendChat = this.sendChat.bind(this);
   }
 
   //renders tickets
@@ -57,13 +44,6 @@ class FeedContainer extends Component {
 
   //refreshes/renders when people add new tickets every 5 secs
   componentDidMount() {
-    socket.on("chat", message => {
-      console.log("sock on cm", message);
-      this.setState(prevState => ({
-        messages: prevState.messages.concat(message)
-      }));
-      // console.log(this.state.messages);
-    });
     this.interval = setInterval(() => this.props.getTickets(), 5000);
   }
 
@@ -76,28 +56,7 @@ class FeedContainer extends Component {
     document.title = "(" + this.props.ticketsCount + ") " + "SnapDesk";
   }
 
-  renderChat() {
-    console.log("in render chat");
-    this.setState({ renderChat: true });
-  }
-
-  // Socket send chat action
-  sendChat(value) {
-    console.log("in send chat");
-    socket.emit("chat", value);
-  }
-
   render() {
-    let chatBox;
-    if (this.state.renderChat) {
-      chatBox = (
-        <LiveChat
-          sendChat={this.sendChat}
-          messages={this.state.messages}
-          userName={this.props.userName}
-        />
-      );
-    }
     // if there are no active tickets, display a message in the background saying nothing here
     // do not render it when a ticket is added
 
@@ -123,7 +82,6 @@ class FeedContainer extends Component {
               messageId={this.props.activeTickets[i].messageId}
               key={this.props.activeTickets[i].messageId}
               userId={this.props.userId}
-              // chat={this.state.renderChat}
             />
           );
         } else {
@@ -149,16 +107,6 @@ class FeedContainer extends Component {
           {/* map buildFeed to tickets array */}
           {/* <BystanderTicketBox /> */}
           {activeTickets}
-        </div>
-        <div className="chatContainer">
-          <button
-            onClick={() => this.renderChat()}
-            id="chatBtn"
-            className="btn btn-success"
-          >
-            Chat
-          </button>
-          {chatBox}
         </div>
         <div className="ticketCreator">
           <TicketCreator {...this.props} key={this.props.userId} />
