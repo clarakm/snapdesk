@@ -36,6 +36,7 @@ ticketsController.getActiveTickets = (req, res, next) => {
         mentorId: ticket.mentor_id
       }));
       res.locals.activeTickets = formatTickets;
+      // console.log(res.locals.activeTickets);
       return next();
     })
     .catch(err =>

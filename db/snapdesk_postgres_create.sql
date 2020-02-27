@@ -33,7 +33,6 @@ CREATE TABLE "chats" (
 	"message" TEXT NOT NULL,
 	"user_name" varchar(255),
 	"timestamp" TIMESTAMP NOT NULL
-
 ) WITH (
   OIDS=FALSE
 );
