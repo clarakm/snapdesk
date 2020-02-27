@@ -72,7 +72,7 @@ apiRouter.post(
   }
 );
 
-apiRouter.get("/chat", messageController.getMessage, (req, res) => {
+apiRouter.get("/chat/getMessages", messageController.getMessage, (req, res) => {
   console.log("inside router");
   res.status(200).json(res.locals.chatMessages);
 });
