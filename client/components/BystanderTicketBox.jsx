@@ -8,7 +8,6 @@
  *
  * ************************************
  */
-
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 // import LiveChat from "./LiveChat.jsx";
@@ -18,16 +17,17 @@ class BystanderTicketBox extends Component {
     super(props);
     // this.renderChat = this.renderChat.bind(this);
   }
-
   render() {
-   
-    if (this.props.ticket.status === "active") {
+    if (this.props.ticket.status === "active" &&
+      this.props.userId === this.props.ticket.mentee) {
       //ticket published by another user but has not been pick up yet
       //Accept button will be active but Cancel button will not and mentee is anonymous
       buttons = (
         <span>
           <Button
-            onClick={() => this.props.acceptTicket(this.props.messageId, this.props.userId)}
+            onClick={() =>
+              this.props.acceptTicket(this.props.messageId, this.props.userId)
+            }
             type="button"
             className="btn btn-success"
           >
@@ -41,8 +41,29 @@ class BystanderTicketBox extends Component {
           </Button>
         </span>
       );
+    } else if (this.props.ticket.status === "active" &&
+    this.props.userId !== this.props.ticket.mentee) {
+    //ticket published by another user but has not been pick up yet
+    //Accept button will be active but Cancel button will not and mentee is anonymous
+    buttons = (
+      <span>
+        <Button
+          onClick={() => this.props.acceptTicket(this.props.messageId, this.props.userId)}
+          type="button"
+          className="btn btn-success"
+        >
+          Accept
+        </Button>
+        {/* <Button onClick={() => this.props.chat()} className="btn btn-success">
+          Chat
+        </Button> */}
+        {/* <Button disabled={true} type="button" className="btn btn-secondary">
+          Cancel
+        </Button> */}
+      </span>
+    );
     } else if (
-      this.props.ticket.userId !== this.props.ticket.mentorId &&
+      this.props.userId !== this.props.ticket.mentorId &&
       this.props.ticket.status === "pending"
     ) {
       //this is when the ticket has been picked up by another mentor already
@@ -50,19 +71,19 @@ class BystanderTicketBox extends Component {
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
-            Pending
+           Pending
           </Button>
-          <Button disabled={true} type="button" className="btn btn-secondary">
+          {/* <Button disabled={true} type="button" className="btn btn-secondary">
             Cancel
-          </Button>
+          </Button> */}
         </span>
       );
     } else if (
-      this.props.ticket.userId === this.props.ticket.mentorId &&
+      this.props.userId === this.props.ticket.mentorId &&
       this.props.ticket.status === "pending"
     ) {
       //user is the mentor
-      //Cancel button is active but Accept is not. mentee userName is active
+      //When ticket is 'pending' set button to decline(from mentor)
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
@@ -78,16 +99,19 @@ class BystanderTicketBox extends Component {
         </span>
       );
     }
-    
+
     return (
-      
-      <div className="BystanderTicketBox ticketbox">
-        <p>Request: {this.props.messageInput}</p>
-        <p>Expected Snaps: {this.props.messageRating}</p>
+      <div className="ticketbox">
+        <p className="request">
+          Request:<span className="req"> {this.props.messageInput}</span>
+        </p>
+        <p className="request">
+          Expected Snaps:{" "}
+          <span className="req">{this.props.messageRating}</span>
+        </p>
         {buttons}
       </div>
     );
   }
 }
-
 export default BystanderTicketBox;

@@ -109,7 +109,6 @@ export const acceptTicket = (messageId, userId) => dispatch => {
     })
     .then(({ data }) => {
       if (data) {
-        console.log(`this is mentor ID ${data}`);
       }
     });
   return dispatch({
@@ -118,10 +117,22 @@ export const acceptTicket = (messageId, userId) => dispatch => {
   });
 };
 
-export const cancelAccept = id => ({
-  type: types.CANCEL_ACCEPT,
-  payload: id
-});
+export const cancelAccept = (messageId) => dispatch => {
+  axios
+  .put("/api/tickets/decline", {
+    ticketId: messageId,
+    status: "active"
+  })
+  .then(({ data }) => {
+    if (data) {
+
+    }
+  });
+  return dispatch({
+    type: types.CANCEL_ACCEPT,
+    payload: messageId
+  });
+}
 
 // export const acceptTicket = event => (dispatch, getState) => {
 //   event.preventDefault();
