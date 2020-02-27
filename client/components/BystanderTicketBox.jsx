@@ -83,7 +83,7 @@ class BystanderTicketBox extends Component {
       this.props.ticket.status === "pending"
     ) {
       //user is the mentor
-      //Cancel button is active but Accept is not. mentee userName is active
+      //When ticket is 'pending' set button to decline(from mentor)
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
@@ -94,7 +94,7 @@ class BystanderTicketBox extends Component {
             type="button"
             className="btn btn-warning"
           >
-            This Decline
+            Decline
           </Button>
         </span>
       );
