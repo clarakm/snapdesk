@@ -16,6 +16,7 @@ import App from "./App.jsx";
 import store from "./store";
 // import styles from "./styles/app.css";
 import style from "./styles/clara.css";
+import styles from "./styles/stars.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 render(
