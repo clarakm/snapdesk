@@ -73,7 +73,7 @@ class BystanderTicketBox extends Component {
             type="button"
             className="btn btn-warning"
           >
-            Cancel - not active
+            Decline
           </Button>
         </span>
       );
