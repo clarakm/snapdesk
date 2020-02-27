@@ -1,71 +1,155 @@
 body {
   background-color: #f0f0f0;
-  font-family: Arial, Helvetica, sans-serif;
+
+  /* letter-spacing: 1px; */
   /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
   /* background: linear-gradient(-45deg, #0c073a, #55338b, #ac9ad4, #585aa3);
   background-size: 400% 400%;
   animation: gradient 10s ease infinite; */
 }
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+
+#full {
+  display: flex;
+  flex-direction: row;
+  align-self: fkex-end;
+}
+#landing {
+  align-self: stretch;
+  width: 1000px;
+  height: 1000px;
+  display: flex;
+  flex-direction: row;
+}
+.void {
+  width: 800px;
+  background: transparent;
+}
+#login-form {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+}
+#github-login {
+  align-self: center;
+  margin-top: -100px;
+  width: 250px;
+  height: 70px;
+  background-color: white;
+  opacity: 0.6;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+#github-login:hover {
+  background-color: white;
+  opacity: 1;
+}
+#github-login:focus {
+  outline: none;
 }
 
 .row {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  align-content: stretch;
 }
 .colOne {
   align-self: stretch;
-  height: 1200px;
+  height: 1300px;
   width: 400px;
-  background-color: white;
+  background-color: #7f6ba9;
   margin-top: -25px;
   margin-left: -25px;
+  font-family: Arial;
 }
 /* left navigation bar style */
 #leftNav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: white;
+  /* background-color: transparent; */
+
   padding: 20px;
   margin-top: 30px;
 }
 #profile {
   border-radius: 50%;
+  border: 2px solid white;
 }
 .userNameWrap {
   font-size: 30px;
   text-align: center;
+  color: white;
+  letter-spacing: 1px;
 }
 #logoutButton {
   width: 100px;
   height: 30px;
-  color: white;
-  background-color: #9aabab;
+  color: black;
+  background-color: #ffe7b4;
   text-align: center;
   font-size: 12px;
-  border-radius: 5px;
+  border-radius: 4px;
 }
 
 /* feedContainer style */
+.colTwo {
+  background-color: #ffffff;
+  align-self: stretch;
+  height: 1220px;
+  width: 1000px;
+  background-color: #f2f2f2;
+  margin-top: -25px;
+  padding: 40px;
+  font-family: "Work Sans", sans-serif;
+  letter-spacing: 0.8px;
+  /* margin-left: -25px; */
+}
+
 #activeTix {
   display: flex;
   flex-direction: column;
 }
 
+.request {
+  font-weight: 800;
+}
+.req {
+  font-weight: 400;
+}
+
 .ticketbox {
-  background-color: azure;
+  background-color: #ffffff;
   margin: 5px;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  border-radius: 8px;
+}
+
+/* right nav bar style */
+.colThree {
+  background-color: #ffffff;
+  width: 600px;
+  align-self: stretch;
+  margin-top: -25px;
+  margin-right: -20px;
+  padding: 20px;
+  font-family: "Barlow";
+}
+
+.rightBar {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.rightField {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: black;
 }
 
 .chatContainer {

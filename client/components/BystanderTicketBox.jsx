@@ -102,8 +102,13 @@ class BystanderTicketBox extends Component {
 
     return (
       <div className="ticketbox">
-        <p>Request: {this.props.messageInput}</p>
-        <p>Expected Snaps: {this.props.messageRating}</p>
+        <p className="request">
+          Request:<span className="req"> {this.props.messageInput}</span>
+        </p>
+        <p className="request">
+          Expected Snaps:{" "}
+          <span className="req">{this.props.messageRating}</span>
+        </p>
         {buttons}
       </div>
     );
