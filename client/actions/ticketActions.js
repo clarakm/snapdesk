@@ -75,10 +75,10 @@ export const deleteTicket = id => (dispatch, getState) =>
       } else {
         dispatch({
           type: types.DELETE_TICKET,
-          payload: id,
-        })
-      }     
-    })
+          payload: id
+        });
+      }
+    });
 
 export const resolveTicket = id => (dispatch, getState) =>
   axios
@@ -94,14 +94,13 @@ export const resolveTicket = id => (dispatch, getState) =>
         });
       } else {
         dispatch({
-          type: types.RESOLVE_TICKET,
+          type: types.DELETE_TICKET,
           payload: id
         });
       }
     });
 
 export const acceptTicket = (messageId, userId) => dispatch => {
-
   axios
     .put("/api/tickets/accept", {
       ticketId: messageId,
@@ -110,14 +109,14 @@ export const acceptTicket = (messageId, userId) => dispatch => {
     })
     .then(({ data }) => {
       if (data) {
-        console.log(`this is mentor ID ${data}`)
+        console.log(`this is mentor ID ${data}`);
       }
     });
-    return dispatch({
-      type: types.ACCEPT_TICKET,
-      payload: [messageId, userId]
-    });
-}
+  return dispatch({
+    type: types.ACCEPT_TICKET,
+    payload: [messageId, userId]
+  });
+};
 
 export const cancelAccept = (messageId) => dispatch => {
   axios

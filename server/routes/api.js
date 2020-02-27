@@ -41,15 +41,23 @@ apiRouter.put(
   "/tickets/accept",
   ticketsController.acceptTicket,
   // ticketsController.updateTicketStatus,
-  (req, res) => res.status(200)
+  (req, res) => res.status(200).json(res.locals.result)
 );
 
-// apiRouter.put(
-//   "tickets/resolve",
-//   ticketsController.updateTicketStatus,
-//   (req, res) => {
-//     res.status(200);
-//   }
-// );
+apiRouter.put(
+  "/tickets/resolve",
+  ticketsController.updateTicketStatus,
+  (req, res) => {
+    res.status(200).json(res.locals.status);
+  }
+);
+
+apiRouter.put(
+  "/tickets/decline",
+  ticketsController.updateTicketStatus,
+  (req, res) => {
+    res.status(200).json(res.locals.status);
+  }
+);
 
 module.exports = apiRouter;
