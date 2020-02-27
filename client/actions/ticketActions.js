@@ -82,7 +82,7 @@ export const deleteTicket = id => (dispatch, getState) =>
 
 export const resolveTicket = id => (dispatch, getState) =>
   axios
-    .put("/api/tickets/resolve", {
+    .put("/api/tickets/delete", {
       ticketId: id,
       status: "resolved"
     })
