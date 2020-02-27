@@ -91,14 +91,14 @@ ticketsController.updateTicketStatus = (req, res, next) => {
 };
 
 ticketsController.acceptTicket = (req, res, next) => {
-  const { ticketId, mentorId } = req.body;
+  const { ticketId, mentorId, status} = req.body;
   const addMentorId = {
     text: `
       UPDATE tickets
       SET
-      mentor_id = $2, status='pending' WHERE _id = $1 
+      mentor_id = $2, status=$3 WHERE _id = $1 
     `,
-    values: [ticketId, mentorId]
+    values: [ticketId, mentorId, status]
   };
 
   db.query(addMentorId)
