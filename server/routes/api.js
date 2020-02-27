@@ -63,9 +63,18 @@ apiRouter.put(
 
 //
 // '/api/chat/newMessage'
-apiRouter.post("/chat/newMessage", messageController.getMessage, (req, res) => {
-  // console.log("inside the router");
-  res.status(200).json(res.locals.message);
+apiRouter.post(
+  "/chat/newMessage",
+  messageController.postMessage,
+  (req, res) => {
+    // console.log("inside the router");
+    res.status(200).json(res.locals.message);
+  }
+);
+
+apiRouter.get("/chat", messageController.getMessage, (req, res) => {
+  console.log("inside router");
+  res.status(200).json(res.locals.chatMessages);
 });
 
 module.exports = apiRouter;

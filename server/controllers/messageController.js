@@ -2,9 +2,10 @@ const db = require("../models/userModel");
 
 const messageController = {};
 
-messageController.getMessage = (req, res, next) => {
+messageController.postMessage = (req, res, next) => {
   //   console.log("i am a body", req.body);
   const { userId, userName, message } = req.body;
+
   const addMessage = {
     text: `
         INSERT INTO chats (user_id, user_name, message, timestamp)
@@ -27,4 +28,29 @@ messageController.getMessage = (req, res, next) => {
     );
 };
 
+messageController.getMessage = (req, res, next) => {
+  const getMessage = {
+    text: `
+        SELECT user_id, user_name, message, timestamp FROM chats`
+  };
+  db.query(getMessage)
+    .then(result => {
+      //   console.log("query successful", result);
+      console.log(result.rows[0]);
+      const chatMessages = result.rows.map(message => ({
+        userId: message.user_id,
+        userName: message.user_name,
+        message: message.message,
+        timestamp: message.timestamp
+      }));
+      res.locals.chatMessages = chatMessages;
+      console.log(res.locals.chatMessages);
+      return next();
+    })
+    .catch(err =>
+      next({
+        log: `Error in middleware ticketsController.getMessage: ${err}`
+      })
+    );
+};
 module.exports = messageController;
