@@ -27,7 +27,9 @@ class BystanderTicketBox extends Component {
       buttons = (
         <span>
           <Button
-            onClick={() => this.props.acceptTicket(this.props.messageId, this.props.userId)}
+            onClick={() =>
+              this.props.acceptTicket(this.props.messageId, this.props.userId)
+            }
             type="button"
             className="btn btn-success"
           >
@@ -99,8 +101,9 @@ class BystanderTicketBox extends Component {
         </span>
       );
     }
+
     return (
-      <div className="BystanderTicketBox ticketbox">
+      <div className="ticketbox">
         <p>Request: {this.props.messageInput}</p>
         <p>Expected Snaps: {this.props.messageRating}</p>
         {buttons}

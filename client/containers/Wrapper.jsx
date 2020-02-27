@@ -14,9 +14,10 @@ import { connect } from "react-redux";
 import * as ticketActions from "../actions/ticketActions";
 import * as userActions from "../actions/userActions";
 import LeftNav from "../components/LeftNav";
-import RightNav from "../components/RightNav";
 import FeedContainer from "./FeedContainer";
 import { bindActionCreators } from "redux";
+
+import RightNav from "../components/RightNav";
 
 const mapStateToProps = state => ({
   totalSnaps: state.tickets.totalSnaps,
@@ -42,21 +43,22 @@ class Wrapper extends Component {
   render() {
     return (
       <div className="wrapper">
-        <div className="row align-items-start">
-          <div className="col-2">
-            <LeftNav 
-              url={this.props.userAvatar} 
-              userName={this.props.userName} 
+        <div className="row">
+          <div className="colOne">
+            <LeftNav
+              url={this.props.userAvatar}
+              userName={this.props.userName}
               logOut={this.props.logOut}
             />
           </div>
-          <div className="col-8">
+          <div className="colTwo">
             <FeedContainer />
           </div>
-          <div className="col-2">
+          <div className="colThree">
             <RightNav
               ticketsCount={this.props.ticketsCount}
               resolvedTickets={this.props.resolvedTickets}
+              userName={this.props.userName}
             />
           </div>
         </div>
