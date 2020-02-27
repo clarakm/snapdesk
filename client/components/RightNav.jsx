@@ -7,6 +7,11 @@ socket = io("http://localhost:3000", {
   transports: ["websocket", "polling"]
 });
 
+import axios from "axios";
+
+
+
+
 class RightNav extends Component {
   constructor(props) {
     super(props);
@@ -20,13 +25,26 @@ class RightNav extends Component {
 
   componentDidMount() {
     socket.on("chat", message => {
-      console.log("sock on cm", message);
+      // console.log("sock on cm", message);
       this.setState(prevState => ({
         messages: prevState.messages.concat(message)
       }));
-      // console.log(this.state.messages);
+
+      // spot where frontend makes a post request to log chat in database
+      console.log('this is the state' + this.props.userId, this.props.userName, message.messages);
+      axios
+      .post("/api/chat/newMessage", {
+        userId: this.props.userId,
+        userName: this.props.userName,
+        message: message.messages
+      })
+      .then(({ data }) => {
+        console.log(data)
+      });
     });
+
   }
+  
   renderChat() {
     console.log("in render chat");
     this.setState({ renderChat: true });
@@ -45,6 +63,8 @@ class RightNav extends Component {
           sendChat={this.sendChat}
           messages={this.state.messages}
           userName={this.props.userName}
+          userId={this.props.userId}
+          userAvatar={this.props.userAvatar}
         />
       );
     }
