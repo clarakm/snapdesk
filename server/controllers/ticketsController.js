@@ -36,6 +36,7 @@ ticketsController.getActiveTickets = (req, res, next) => {
         mentorId: ticket.mentor_id
       }));
       res.locals.activeTickets = formatTickets;
+      // console.log(res.locals.activeTickets);
       return next();
     })
     .catch(err =>
@@ -73,12 +74,13 @@ ticketsController.addTicket = (req, res, next) => {
 
 ticketsController.updateTicketStatus = (req, res, next) => {
   const { ticketId, status } = req.body;
-  console.log(req.body);
+  // console.log("req.body inside updateTicketStatus", req.body);
   const updateTicket = {
     text: `
       UPDATE tickets
       SET status = $1
-      WHERE _id = $2;
+      WHERE _id = $2
+      RETURNING *;
     `,
     values: [status, ticketId]
   };
@@ -86,6 +88,7 @@ ticketsController.updateTicketStatus = (req, res, next) => {
   db.query(updateTicket)
     .then(result => {
       // console.log(result);
+      // console.log("db success, result.rows", result.rows);
       res.locals.status = result.rows[0];
       return next();
     })
@@ -122,35 +125,35 @@ ticketsController.acceptTicket = (req, res, next) => {
     );
 };
 
-// ticketsController.getResolvedTickets = (req, res, next) => {
-//   const resolvedTickets = `
-//     SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name
-//     FROM tickets t
-//     INNER JOIN users u
-//     ON u._id = t.mentee_id
-//     WHERE status = 'resolve'
-//     ORDER BY t._id;
-//   `;
-//   db.query(resolvedTickets)
-//     .then(({ rows }) => {
-//       const formatTickets = rows.map(ticket => ({
-//         messageInput: ticket.message,
-//         messageRating: ticket.snaps_given,
-//         messageId: ticket._id,
-//         menteeId: ticket.mentee_id,
-//         menteeName: ticket.mentee_name,
-//         timestamp: ticket.timpestamp,
-//         status: ticket.status,
-//         mentorId: ticket.mentor_id || ""
-//       }));
-//       res.locals.resolvedTickets = formatTickets;
-//       return next();
-//     })
-//     .catch(err =>
-//       next({
-//         log: `Error in middleware ticketsController.getResolvedTickets: ${err}`
-//       })
-//     );
-// };
+ticketsController.getResolvedTickets = (req, res, next) => {
+  const resolvedTickets = `
+    SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name
+    FROM tickets t
+    INNER JOIN users u
+    ON u._id = t.mentee_id
+    WHERE status = 'resolve'
+    ORDER BY t._id;
+  `;
+  db.query(resolvedTickets)
+    .then(({ rows }) => {
+      const formatTickets = rows.map(ticket => ({
+        messageInput: ticket.message,
+        messageRating: ticket.snaps_given,
+        messageId: ticket._id,
+        menteeId: ticket.mentee_id,
+        menteeName: ticket.mentee_name,
+        timestamp: ticket.timpestamp,
+        status: ticket.status,
+        mentorId: ticket.mentor_id || ""
+      }));
+      res.locals.resolvedTickets = formatTickets;
+      return next();
+    })
+    .catch(err =>
+      next({
+        log: `Error in middleware ticketsController.getResolvedTickets: ${err}`
+      })
+    );
+};
 
 module.exports = ticketsController;

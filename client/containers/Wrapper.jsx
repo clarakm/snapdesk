@@ -25,7 +25,8 @@ const mapStateToProps = state => ({
   ticketsCount: state.tickets.ticketsCount,
   userAvatar: state.user.userAvatar,
   userName: state.user.userName,
-  resolvedTickets: state.tickets.resolvedTickets
+  resolvedTickets: state.tickets.resolvedTickets,
+  userId: state.user.userId
 });
 
 const mapDispatchToProps = dispatch =>
@@ -59,6 +60,8 @@ class Wrapper extends Component {
               ticketsCount={this.props.ticketsCount}
               resolvedTickets={this.props.resolvedTickets}
               userName={this.props.userName}
+              userId={this.props.userId}
+              userAvatar={this.props.userAvatar}
             />
           </div>
         </div>
