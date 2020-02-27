@@ -17,10 +17,21 @@ class RightNav extends Component {
     super(props);
     this.state = {
       renderChat: false,
-      messages: []
+      messages: [],
+      chatLog: []
     };
     this.renderChat = this.renderChat.bind(this);
     this.sendChat = this.sendChat.bind(this);
+  }
+
+  // load previous messages before rendering page
+  componentWillMount() {
+    axios.get("/api/chat/getMessages")
+    .then(({ data }) => {
+      // filter the data so the messages dont overlap
+      console.log(data)
+      // use date constructor to filter out the date
+    });    
   }
 
   componentDidMount() {
