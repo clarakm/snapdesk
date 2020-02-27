@@ -18,8 +18,6 @@ class BystanderTicketBox extends Component {
     // this.renderChat = this.renderChat.bind(this);
   }
   render() {
-    console.log(this.props.userId)
-    console.log(this.props.ticket.mentorId)
     if (this.props.ticket.status === "active" &&
       this.props.userId === this.props.ticket.mentee) {
       //ticket published by another user but has not been pick up yet
@@ -85,7 +83,7 @@ class BystanderTicketBox extends Component {
       this.props.ticket.status === "pending"
     ) {
       //user is the mentor
-      //Cancel button is active but Accept is not. mentee userName is active
+      //When ticket is 'pending' set button to decline(from mentor)
       buttons = (
         <span>
           <Button disabled={true} type="button" className="btn btn-success">
@@ -96,7 +94,7 @@ class BystanderTicketBox extends Component {
             type="button"
             className="btn btn-warning"
           >
-            This Decline
+            Decline
           </Button>
         </span>
       );

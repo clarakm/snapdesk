@@ -28,7 +28,7 @@ loginRouter.get(
   githubController.createUser,
   jwtsController.loginUser,
   (req, res) => {
-    res.redirect('/');
+    res.redirect('http://localhost:8080/');
   }
 );
 
