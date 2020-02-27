@@ -15,13 +15,13 @@ const ticketsController = {};
 
 ticketsController.getActiveTickets = (req, res, next) => {
   const getActiveTickets = `
-    SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name
+    SELECT t._id, t.snaps_given, t.message, t.status, t.timestamp, t.mentee_id, u.name mentee_name, mentor_id
     FROM tickets t
     INNER JOIN users u
     ON u._id = t.mentee_id
     WHERE status = 'active'
     OR status = 'pending'
-    ORDER BY t._id;
+    ORDER BY t._id
   `;
   db.query(getActiveTickets)
     .then(({ rows }) => {
@@ -33,7 +33,7 @@ ticketsController.getActiveTickets = (req, res, next) => {
         menteeName: ticket.mentee_name,
         timestamp: ticket.timpestamp,
         status: ticket.status,
-        mentorId: ticket.mentor_id || ""
+        mentorId: ticket.mentor_id
       }));
       res.locals.activeTickets = formatTickets;
       return next();
