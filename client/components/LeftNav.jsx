@@ -3,7 +3,6 @@ import { Nav } from "react-bootstrap";
 
 const LeftNav = props => (
   <div
-    defaultActiveKey="/feed"
     className="d-flex justify-content-center flex-direct:column"
     id="leftNav"
   >
@@ -16,7 +15,7 @@ const LeftNav = props => (
         alt="Snap Desk Logo"
       ></img> */}
     </div>
-    <div eventKey="profile-link" className="profilePic">
+    <div className="profilePic">
       {/* {" "} */}
       <img
         id="profile"

@@ -43,17 +43,17 @@ class Wrapper extends Component {
     return (
       <div className="wrapper">
         <div className="row">
-          <div className="col">
+          <div className="colOne">
             <LeftNav
               url={this.props.userAvatar}
               userName={this.props.userName}
               logOut={this.props.logOut}
             />
           </div>
-          <div className="col">
+          <div className="colTwo">
             <FeedContainer />
           </div>
-          <div className="col">
+          <div className="colThree">
             <RightNav
               ticketsCount={this.props.ticketsCount}
               resolvedTickets={this.props.resolvedTickets}

@@ -1,6 +1,21 @@
 body {
-  background-color: #d1e0e0;
+  background-color: #f0f0f0;
   font-family: Arial, Helvetica, sans-serif;
+  /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+  /* background: linear-gradient(-45deg, #0c073a, #55338b, #ac9ad4, #585aa3);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite; */
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .row {
@@ -8,7 +23,13 @@ body {
   flex-direction: row;
   justify-content: space-between;
 }
-.col {
+.colOne {
+  align-self: stretch;
+  height: 1200px;
+  width: 400px;
+  background-color: white;
+  margin-top: -25px;
+  margin-left: -25px;
 }
 /* left navigation bar style */
 #leftNav {
@@ -16,10 +37,8 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: white;
-  height: 900px;
-  width: 350px;
   padding: 20px;
-  align-self: stretch;
+  margin-top: 30px;
 }
 #profile {
   border-radius: 50%;
@@ -46,6 +65,7 @@ body {
 
 .ticketbox {
   background-color: azure;
+  margin: 5px;
 }
 
 .chatContainer {

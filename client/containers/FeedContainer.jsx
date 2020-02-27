@@ -32,10 +32,12 @@ const mapStateToProps = state => ({
   messageRating: state.tickets.messageRating,
   activeTickets: state.tickets.activeTickets,
   messageRating: state.tickets.messageRating,
-  ticketsCount: state.tickets.ticketsCount
+  ticketsCount: state.tickets.ticketsCount,
+  userName: state.user.userName
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(ticketActions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(ticketActions, dispatch);
 
 class FeedContainer extends Component {
   constructor(props) {
@@ -89,7 +91,11 @@ class FeedContainer extends Component {
     let chatBox;
     if (this.state.renderChat) {
       chatBox = (
-        <LiveChat sendChat={this.sendChat} messages={this.state.messages} />
+        <LiveChat
+          sendChat={this.sendChat}
+          messages={this.state.messages}
+          userName={this.props.userName}
+        />
       );
     }
     // if there are no active tickets, display a message in the background saying nothing here
@@ -116,7 +122,7 @@ class FeedContainer extends Component {
               ticket={this.props.activeTickets[i]}
               messageId={this.props.activeTickets[i].messageId}
               key={this.props.activeTickets[i].messageId}
-              userId= {this.props.userId}
+              userId={this.props.userId}
               // chat={this.state.renderChat}
             />
           );

@@ -29,9 +29,9 @@ class MenteeTicketBox extends Component {
       buttons = (
         <span>
           <Button
-            onClick={() =>
-              this.props.resolveTicket(this.props.ticket.messageId)
-            }
+            onClick={() => {
+              this.props.resolveTicket(this.props.ticket.messageId);
+            }}
             type="button"
             className="btn btn-secondary"
           >

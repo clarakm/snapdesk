@@ -5,7 +5,11 @@ const LiveChat = props => {
   // console.log("clicked");
   // console.log("in props.msg", props.messages);
   const logs = props.messages.map((chat, i) => {
-    return <div key={i}>{chat.messages}</div>;
+    return (
+      <div key={i}>
+        {props.userName}:&nbsp;&nbsp;{chat.messages}
+      </div>
+    );
   });
   console.log("logs", logs);
   return (
