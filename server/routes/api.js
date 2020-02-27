@@ -6,6 +6,7 @@ const apiRouter = express.Router();
 const jwtsController = require("../controllers/jwtsController");
 const userController = require("../controllers/userController");
 const ticketsController = require("../controllers/ticketsController");
+const messageController = require("../controllers/messageController");
 
 // ADD API ROUTES HERE
 apiRouter.get(
@@ -59,5 +60,12 @@ apiRouter.put(
     res.status(200).json(res.locals.status);
   }
 );
+
+//
+// '/api/chat/newMessage'
+apiRouter.post("/chat/newMessage", messageController.getMessage, (req, res) => {
+  // console.log("inside the router");
+  res.status(200).json(res.locals.message);
+});
 
 module.exports = apiRouter;
