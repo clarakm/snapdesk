@@ -19,7 +19,7 @@ const LiveChat = props => {
 
   const logs = props.messages.map((chat, i) => {
     return (
-      <div className="chatmsg" key={i}>
+      <div key={i}>
         {props.userName}:&nbsp;&nbsp;{chat.messages}
       </div>
     );
