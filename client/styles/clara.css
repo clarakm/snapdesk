@@ -440,6 +440,6 @@ body {
 
 .timeStamp {
   font-size: 12px;
-  text-align: center;
+  text-align: right;
   color: grey;
 }

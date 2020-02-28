@@ -19,6 +19,7 @@ class RightNav extends Component {
     };
     this.renderChat = this.renderChat.bind(this);
     this.sendChat = this.sendChat.bind(this);
+    // this.toggleChatBox = this.toggleChatBox.bind(this)
   }
 
   componentDidMount() {
@@ -57,7 +58,11 @@ class RightNav extends Component {
 
   renderChat() {
     console.log("in render chat");
-    this.setState({ renderChat: true });
+    if (!this.state.renderChat){
+      this.setState({ renderChat: true });
+      } else {
+        this.setState({ renderChat: false });
+      }
   }
 
   // Socket send chat action
@@ -69,14 +74,35 @@ class RightNav extends Component {
     let chatBox;
     if (this.state.renderChat) {
       chatBox = (
-        <LiveChat
-          sendChat={this.sendChat}
-          messages={this.state.messages}
-          userName={this.props.userName}
-          userId={this.props.userId}
-          userAvatar={this.props.userAvatar}
-          history={this.state.history}
-        />
+        <div>
+          <LiveChat
+            sendChat={this.sendChat}
+            messages={this.state.messages}
+            userName={this.props.userName}
+            userId={this.props.userId}
+            userAvatar={this.props.userAvatar}
+            history={this.state.history}
+          />
+          <button
+            onClick={() => this.renderChat()}
+            id="chatBtn"
+            className="btn btn-success"
+          >
+            Close
+          </button>
+        </div>
+      );
+    } else {
+      chatBox = (
+      <div>
+        <button
+          onClick={() => this.renderChat()}
+          id="chatBtn"
+          className="btn btn-success"
+        >
+          Chat
+        </button>
+      </div>
       );
     }
 
@@ -98,13 +124,13 @@ class RightNav extends Component {
         </div>
         <div className="chatContainer">
           {chatBox}
-          <button
+          {/* <button
             onClick={() => this.renderChat()}
             id="chatBtn"
             className="btn btn-success"
           >
             Chat
-          </button>
+          </button> */}
         </div>
         {/* </div> */}
       </div>
