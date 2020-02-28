@@ -10,14 +10,28 @@
  */
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-// import LiveChat from "./LiveChat.jsx";
+import CommentBox from "./CommentBox.jsx";
+
 let buttons;
 class BystanderTicketBox extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      commentBox: false,
+      comments: []
+    };
+    this.renderComments = this.renderComments.bind(this);
     // this.renderChat = this.renderChat.bind(this);
   }
+  renderComments() {
+    console.log("in render cmt");
+    this.setState({ commentBox: true });
+  }
   render() {
+    let commentBox;
+    if (this.state.commentBox) {
+      commentBox = <CommentBox />;
+    }
     if (
       this.props.ticket.status === "active" &&
       this.props.userId === this.props.ticket.mentee
@@ -56,9 +70,16 @@ class BystanderTicketBox extends Component {
               this.props.acceptTicket(this.props.messageId, this.props.userId)
             }
             type="button"
-            className="btn btn-success"
+            className="accept"
           >
             Accept
+          </Button>
+          <Button
+            type="button"
+            className="commentBtn"
+            onClick={() => this.renderComments()}
+          >
+            Comment
           </Button>
           {/* <Button onClick={() => this.props.chat()} className="btn btn-success">
           Chat
@@ -76,7 +97,7 @@ class BystanderTicketBox extends Component {
       //Both button will not be active and mentee is anonymous
       buttons = (
         <span>
-          <Button disabled={true} type="button" className="btn btn-success">
+          <Button disabled={true} type="button" className="pending">
             Pending
           </Button>
           {/* <Button disabled={true} type="button" className="btn btn-secondary">
@@ -92,13 +113,13 @@ class BystanderTicketBox extends Component {
       //When ticket is 'pending' set button to decline(from mentor)
       buttons = (
         <span>
-          <Button disabled={true} type="button" className="btn btn-success">
+          <Button disabled={true} type="button" className="pending">
             Pending
           </Button>
           <Button
             onClick={() => this.props.cancelAccept(this.props.messageId)}
             type="button"
-            className="btn btn-warning"
+            className="decline"
           >
             Decline
           </Button>
@@ -116,6 +137,8 @@ class BystanderTicketBox extends Component {
           <span className="req">{this.props.messageRating}</span>
         </p>
         {buttons}
+        <div className="cmtbx">{commentBox}</div>
+        {/* <CommentBox /> */}
       </div>
     );
   }
