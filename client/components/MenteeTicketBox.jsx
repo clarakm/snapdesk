@@ -33,7 +33,7 @@ class MenteeTicketBox extends Component {
               this.props.resolveTicket(this.props.ticket.messageId);
             }}
             type="button"
-            className="btn btn-secondary"
+            className="resolve"
           >
             Resolve
           </Button>
@@ -41,7 +41,7 @@ class MenteeTicketBox extends Component {
           <Button
             onClick={() => this.props.deleteTicket(this.props.ticket.messageId)}
             type="button"
-            className="btn btn-success"
+            className="delete"
           >
             Delete
           </Button>
@@ -55,11 +55,11 @@ class MenteeTicketBox extends Component {
               this.props.resolveTicket(this.props.ticket.messageId)
             }
             type="button"
-            className="btn btn-secondary"
+            className="resolve"
           >
             Resolve
           </Button>
-          <Button disabled={true} type="button" className="btn btn-success">
+          <Button disabled={true} type="button" className="delete">
             Delete
           </Button>
         </span>

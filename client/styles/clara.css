@@ -169,6 +169,87 @@ body {
 .ticketbox:hover {
   border: 2px solid rgb(182, 204, 208);
 }
+.accept {
+  height: 25px;
+  width: 60px;
+  margin: 2px;
+  border-radius: 4px;
+  background-color: #d9f5eb;
+}
+.accept:focus {
+  outline: none;
+}
+.resolve {
+  height: 25px;
+  width: 60px;
+  margin: 2px;
+  border-radius: 4px;
+  color: white;
+  background-color: #38386d;
+}
+.resolve:focus {
+  outline: none;
+}
+.delete {
+  height: 25px;
+  width: 55px;
+  margin: 2px;
+  border-radius: 4px;
+}
+.delete:focus {
+  outline: none;
+}
+.commentBtn {
+  height: 25px;
+  width: 75px;
+  margin: 2px;
+  border-radius: 4px;
+}
+.commentBtn:focus {
+  outline: none;
+}
+.decline {
+  height: 25px;
+  width: 75px;
+  margin: 2px;
+  border-radius: 4px;
+}
+.decline:focus {
+  outline: none;
+}
+.pending {
+  height: 25px;
+  width: 75px;
+  margin: 2px;
+  border-radius: 4px;
+}
+.pending:focus {
+  outline: none;
+}
+
+.postCommentButton {
+  height: 25px;
+  width: 45px;
+  margin: 10px;
+  border-radius: 4px;
+  border: 1px solid #313160;
+  background-color: #fff3cd;
+}
+.postCommentButton:focus {
+  outline: none;
+}
+.commentLog {
+  margin: 10px;
+}
+.singleComment {
+  width: 30%;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 5px;
+  background-color: #eaf1ef;
+}
 
 /* ticket creator styling */
 .inputReq {
@@ -284,6 +365,7 @@ body {
 .chatLog {
   width: 300px;
   height: 350px;
+  overflow: scroll;
 }
 
 .chatBox {
