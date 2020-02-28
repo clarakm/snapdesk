@@ -42,4 +42,20 @@ jwtsController.isLoggedIn = (req, res, next) => {
   }
 };
 
+jwtsController.isLoggedOut = (req, res, next) => {
+  req.cookies = {};
+  try {
+    jwt.verify(req.cookies.jwt_token, jwtSecret.secret, (err, data) => {
+      // if not logged in, immediately report to client
+      if (err) return res.status(200).json({ isLoggedIn: true });
+      res.locals = { isLoggedIn: false };
+      return next();
+    });
+  } catch (err) {
+    return next({
+      log: `Error in middleware jwtsController.isLoggedIn: ${err}`,
+    });
+  }
+};
+
 module.exports = jwtsController;

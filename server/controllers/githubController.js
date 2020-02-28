@@ -60,11 +60,11 @@ githubController.userData = (req, res, next) => {
 };
 
 githubController.createUser = (req, res, next) => {
-try {
-  const checkUser = {
-    text: `SELECT * FROM users WHERE github_id = $1;`,
-    values: [res.locals.userData.github_id]
-  };
+  try {
+    const checkUser = {
+      text: `SELECT * FROM users WHERE github_id = $1;`,
+      values: [res.locals.userData.github_id]
+    };
 
     const addUser = {
       text: `
@@ -100,9 +100,35 @@ try {
     })
     .catch(err => ({ log: `Error in middleware loginController.createUser db checkUser: ${err}`}))
 
-} catch (err) {
-  return next({ log: `Error in middleware loginController.createUser db checkUser: ${err}` })
-}
-}
+    // query data
+    db.query(checkUser)
+      .then(user => {
+        // if user doesn't exist in database, add to db
+        if (user.rowCount === 0) {
+          db.query(addUser)
+            .then(success => {
+              console.log("SUCCESS: ", success);
+              res.locals.userData.id = success.rows[0]._id;
+              return next();
+            })
+            .catch(err =>
+              next({
+                log: `Error in middleware loginController.createUser db addUser: ${err}`
+              })
+            );
+        } else {
+          res.locals.userData.id = user.rows[0]._id;
+          return next();
+        }
+      })
+      .catch(err => ({
+        log: `Error in middleware loginController.createUser db checkUser: ${err}`
+      }));
+  } catch (err) {
+    return next({
+      log: `Error in middleware loginController.createUser db checkUser: ${err}`
+    });
+  }
+};
 
 module.exports = githubController;
