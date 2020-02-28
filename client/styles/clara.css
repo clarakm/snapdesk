@@ -334,3 +334,9 @@ body {
 .sendButton:focus {
   outline: none;
 }
+
+.timeStamp {
+  font-size: 12px;
+  text-align: center;
+  color: grey;
+}
