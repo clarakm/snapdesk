@@ -11,13 +11,13 @@ const LiveChat = props => {
   const history = props.history.map((chat, i) => {
     return (
       <div key={i}>
-        <div className="timeStamp">
-          {chat.timestamp.slice(11,19)}
+        <div id="chatM" className="timeStamp">
+          {chat.timestamp.slice(11, 19)}
         </div>
         {chat.userName}:&nbsp;&nbsp;{chat.message}
       </div>
-    )
-  })
+    );
+  });
 
   const logs = props.messages.map((chat, i) => {
     return (
@@ -32,6 +32,7 @@ const LiveChat = props => {
   console.log("logs", logs);
   return (
     <div className="chatBox">
+      <header className="chatHeader">SnapDesk Messenger</header>
       <div className="chatLog">
         {history}
         {logs}
