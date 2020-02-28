@@ -18,7 +18,7 @@ class RightNav extends Component {
     this.state = {
       renderChat: false,
       messages: [],
-      chatLog: []
+      history: []
     };
     this.renderChat = this.renderChat.bind(this);
     this.sendChat = this.sendChat.bind(this);
@@ -26,17 +26,17 @@ class RightNav extends Component {
   }
 
 
-  // load previous messages before rendering page
-  componentWillMount() {
+  componentDidMount() {
+    // GET PREVIOUS MESSAGES HERE
     axios.get("/api/chat/getMessages")
     .then(({ data }) => {
       // filter the data so the messages dont overlap
-      console.log(data)
+      this.setState(prevState => ({
+        history: prevState.history.concat(data)
+      }))
       // use date constructor to filter out the date
-    });    
-  }
+    });
 
-  componentDidMount() {
     socket.on("chat", message => {
       // console.log("sock on cm", message);
       this.setState(prevState => ({
@@ -83,6 +83,7 @@ class RightNav extends Component {
             userName={this.props.userName}
             userId={this.props.userId}
             userAvatar={this.props.userAvatar}
+            history={this.state.history}
           />
           <button
             onClick={() => this.renderChat()}
