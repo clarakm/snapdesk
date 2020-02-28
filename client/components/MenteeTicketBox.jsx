@@ -29,9 +29,9 @@ class MenteeTicketBox extends Component {
       buttons = (
         <span>
           <Button
-            onClick={() =>
-              this.props.resolveTicket(this.props.ticket.messageId)
-            }
+            onClick={() => {
+              this.props.resolveTicket(this.props.ticket.messageId);
+            }}
             type="button"
             className="btn btn-secondary"
           >
@@ -66,9 +66,14 @@ class MenteeTicketBox extends Component {
       );
     }
     return (
-      <div className="MenteeTicketBox ticketbox">
-        <p>Request: {this.props.messageInput}</p>
-        <p>Expected Snaps: {this.props.messageRating}</p>
+      <div className="ticketbox">
+        <p className="myrequest">
+          Request: <span className="req">{this.props.messageInput}</span>
+        </p>
+        <p className="expected">
+          Expected Snaps:{" "}
+          <span className="req">{this.props.messageRating}</span>
+        </p>
         {buttons}
       </div>
     );

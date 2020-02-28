@@ -9,13 +9,12 @@
  * ************************************
  */
 
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Wrapper from './containers/Wrapper';
-
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Wrapper from "./containers/Wrapper";
 
 const mapStateToProps = ({ user: { isLoggedIn } }) => ({
-  isLoggedIn,
+  isLoggedIn
 });
 
 const mapDispatchToProps = dispatch => ({});
@@ -31,8 +30,19 @@ class App extends Component {
     if (!isLoggedIn) {
       return (
         <div id="landing">
-          <form id="login-form" method="GET" action="/login/oauth">
-            <img id="logo" src="logo2.png" alt="" />
+          <div id="stars"></div>
+          <section className="void"></section>
+          <div id="stars2"></div>
+          <div id="stars3"></div>
+
+          <form
+            className="home"
+            id="login-form"
+            method="GET"
+            action="/login/oauth"
+          >
+            {/* <img className="logo" src="../img/logo2.png" /> */}
+
             <button
               className="btn btn-outline-primary btn-lg"
               id="github-login"
@@ -46,16 +56,11 @@ class App extends Component {
     }
 
     return (
-      
       <div id="mainBackground">
-        
         <Wrapper />
       </div>
     );
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -84,7 +84,7 @@ export const resolveTicket = id => (dispatch, getState) =>
   axios
     .put("/api/tickets/delete", {
       ticketId: id,
-      status: "deleted"
+      status: "resolved"
     })
     .then(({ data }) => {
       if (!data.isLoggedIn) {
@@ -100,15 +100,38 @@ export const resolveTicket = id => (dispatch, getState) =>
       }
     });
 
-export const acceptTicket = id => ({
-  type: types.ACCEPT_TICKET,
-  payload: id
-});
+export const acceptTicket = (messageId, userId) => dispatch => {
+  axios
+    .put("/api/tickets/accept", {
+      ticketId: messageId,
+      mentorId: userId,
+      status: "pending"
+    })
+    .then(({ data }) => {
+      if (data) {
+      }
+    });
+  return dispatch({
+    type: types.ACCEPT_TICKET,
+    payload: [messageId, userId]
+  });
+};
 
-export const cancelAccept = id => ({
-  type: types.CANCEL_ACCEPT,
-  payload: id
-});
+export const cancelAccept = messageId => dispatch => {
+  axios
+    .put("/api/tickets/decline", {
+      ticketId: messageId,
+      status: "active"
+    })
+    .then(({ data }) => {
+      if (data) {
+      }
+    });
+  return dispatch({
+    type: types.CANCEL_ACCEPT,
+    payload: messageId
+  });
+};
 
 // export const acceptTicket = event => (dispatch, getState) => {
 //   event.preventDefault();

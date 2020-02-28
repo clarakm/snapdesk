@@ -9,18 +9,20 @@
  * ************************************
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import App from './App.jsx';
-import store from './store';
-import styles from './styles/app.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import App from "./App.jsx";
+import store from "./store";
+// import styles from "./styles/app.css";
+import style from "./styles/clara.css";
+import styles from "./styles/stars.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 render(
   // wrap the App in the Provider and pass in the store
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('contents')
+  document.getElementById("contents")
 );
