@@ -361,11 +361,29 @@ body {
   color: #1d1d4f;
   background-color: white;
 }
+.chatHeader {
+  font-weight: 600;
+  color: white;
+  background-color: #313185;
+  padding: 5px;
+  margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  align-self: stretch;
+}
 
 .chatLog {
-  width: 300px;
+  width: 330px;
   height: 350px;
   overflow: scroll;
+  align-self: center;
+  margin-bottom: 5px;
+}
+.chatmsg {
+  padding-bottom: 10px;
+}
+.chatM {
+  padding-bottom: 10px;
 }
 
 .chatBox {
