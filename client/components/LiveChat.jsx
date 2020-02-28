@@ -44,17 +44,17 @@ const LiveChat = props => {
         value={text}
         onChange={e => setText(e.target.value)}
       />
-      <button
-        className="sendButton"
-        onClick={() => {
-          props.sendChat({
-            messages: text
-          });
-          setText("");
-        }}
-      >
-        send
-      </button>
+        <button
+          className="sendButton"
+          onClick={() => {
+            props.sendChat({
+              messages: text
+            });
+            setText("");
+          }}
+          >
+          send
+        </button>
     </div>
   );
 };
